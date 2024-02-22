@@ -13,12 +13,14 @@ public class StudentController {
     @Autowired
     private StudentService studentService;  // always autowire interfaces
 
+
+    // using @RequestParam to get single record
     @GetMapping("/student")
     public StudentDTO getStudent(@RequestParam Long id) {
         return studentService.getStudent(id);
     }
 
-/* using path variable
+/* using path variable to get a single record
     @GetMapping("/student/{id}")
     public StudentDTO getStudent(@PathVariable Long id) {
         return studentService.getStudent(id);
