@@ -4,8 +4,13 @@ import com.aayush.sb.demo.dao.StudentDao;
 import com.aayush.sb.demo.dto.StudentDTO;
 import com.aayush.sb.demo.model.Student;
 import com.aayush.sb.demo.service.StudentService;
+import org.hibernate.annotations.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +25,7 @@ public class StudentServiceImpl implements StudentService {
         Optional<Student> optionalStudent = studentDao.findById(id);
         StudentDTO studentDTO = null;
         if (optionalStudent.isEmpty()) {
-            return studentDTO;
+            return null;
         } else {
             studentDTO = new StudentDTO();
             studentDTO.setId(optionalStudent.get().getId());
@@ -61,5 +66,21 @@ public class StudentServiceImpl implements StudentService {
         respStudentDTO.setName(dbStudent.getName());
         respStudentDTO.setEmail(dbStudent.getEmail());
         return respStudentDTO;
+    }
+
+    public StudentDTO editStudent(long id, StudentDTO studentDTO) {
+        // first get the student with their ID
+        Student student = studentDao.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "user with id " + id + "not found"));
+        student.setEmail(studentDTO.getEmail());
+        student.setName(studentDTO.getName());
+        studentDTO.setId(id);
+        return studentDTO;
+
+    }
+
+    @Override
+    public void deleteStudent(long id) {
+         studentDao.deleteById(id);
     }
 }

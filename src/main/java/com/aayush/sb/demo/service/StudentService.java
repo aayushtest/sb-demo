@@ -11,4 +11,8 @@ public interface StudentService {
     public List<StudentDTO> getStudents();
 
     public StudentDTO createStudent(StudentDTO studentDTO);
+
+    public StudentDTO editStudent(long id, StudentDTO studentDTO);
+
+    public void deleteStudent(long id);
 }
