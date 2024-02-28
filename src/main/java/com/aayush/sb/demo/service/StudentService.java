@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface StudentService {
 
-    public StudentDTO getStudent(long id);
+     StudentDTO getStudent(long id);
 
-    public List<StudentDTO> getStudents();
+     List<StudentDTO> getStudents();
 
-    public StudentDTO createStudent(StudentDTO studentDTO);
+     StudentDTO createStudent(StudentDTO studentDTO);
 
-    public StudentDTO editStudent(long id, StudentDTO studentDTO);
+     StudentDTO editStudent(long id, StudentDTO studentDTO);
 
-    public void deleteStudent(long id);
+     void deleteStudent(long id);
 }
